@@ -4,3 +4,5 @@
 * jq
 * yq
 * python3
+* ansible
+* doctl
