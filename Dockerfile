@@ -2,7 +2,7 @@ FROM bash:5
 WORKDIR /app
 
 ARG DOCTL_VERSION=1.20.1
-ARG ANSIBLE_VERSION=2.8.1
+ARG ANSIBLE_VERSION=2.8.3
 
 # Install tools
 RUN set -xe \
