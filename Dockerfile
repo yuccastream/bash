@@ -6,8 +6,21 @@ ARG ANSIBLE_VERSION=2.8.1
 
 # Install tools
 RUN set -xe \
-  && apk add --no-cache --progress py3-pip jq curl nmap bind-tools \
-  python3 openssl ca-certificates git openssh sshpass \
+  && apk add --no-cache --progress \
+  bind-tools \
+  ca-certificates \
+  curl \
+  git \
+  jq \
+  nmap \
+  openssh \
+  openssl \
+  py3-pip \
+  python3 \
+  sshpass \
+  tar \
+  unzip \
+  zip \
   && pip3 install yq
 
 # Install DigitalOcean cli tool
