@@ -6,11 +6,11 @@ ARG ANSIBLE_VERSION=2.9.6
 
 # Install tools
 RUN set -xe \
-  && apk add --no-cache --progress \
+  && apk add --update --no-cache --progress \
   bind-tools \
   ca-certificates \
   curl \
-  docker-ctl \
+  docker-cli \
   git \
   jq \
   nmap \

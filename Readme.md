@@ -2,7 +2,7 @@
 
 * ansible
 * bash
-* docker-ctl
+* docker-cli
 * doctl
 * jq
 * python3
