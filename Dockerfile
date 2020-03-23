@@ -1,8 +1,8 @@
 FROM bash:5
 WORKDIR /app
 
-ARG DOCTL_VERSION=1.20.1
-ARG ANSIBLE_VERSION=2.8.3
+ARG DOCTL_VERSION=1.39.0
+ARG ANSIBLE_VERSION=2.9.6
 
 # Install tools
 RUN set -xe \
@@ -10,6 +10,7 @@ RUN set -xe \
   bind-tools \
   ca-certificates \
   curl \
+  docker-ctl \
   git \
   jq \
   nmap \

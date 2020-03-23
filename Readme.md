@@ -1,8 +1,9 @@
-# CI deps
+# CI utils
 
-* bash
-* jq
-* yq
-* python3
 * ansible
+* bash
+* docker-ctl
 * doctl
+* jq
+* python3
+* yq
