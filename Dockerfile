@@ -13,6 +13,7 @@ RUN set -xe \
   docker-cli \
   git \
   jq \
+  make \
   nmap \
   openssh \
   openssl \

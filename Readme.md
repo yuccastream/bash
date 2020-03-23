@@ -5,5 +5,6 @@
 * docker-cli
 * doctl
 * jq
+* make
 * python3
 * yq
