@@ -1,5 +1,7 @@
 # CI tools
 
+[![dockeri.co](https://dockeri.co/image/yuccastream/ci-tools)](https://hub.docker.com/r/yuccastream/ci-tools)  
+
 ```yaml
 ANSIBLE_VERSION: "2.9.6"
 DOCTL_VERSION: "1.39.0"
