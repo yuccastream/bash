@@ -13,6 +13,7 @@ RUN set -xe \
   bind-tools \
   ca-certificates \
   curl \
+  docker-cli \
   git \
   gnupg \
   jq \
@@ -23,8 +24,8 @@ RUN set -xe \
   py3-pip \
   python3 \
   sshpass \
-  docker-cli \
   tar \
+  tree \
   unzip \
   zip \
   && curl https://rclone.org/install.sh | bash \
