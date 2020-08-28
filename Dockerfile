@@ -2,8 +2,8 @@ FROM bash:5
 WORKDIR /app
 
 ARG DOCTL_VERSION=1.39.0
-ARG ANSIBLE_VERSION=2.9.6
-ARG KUBECTL_VERSION=v1.17.2
+ARG ANSIBLE_VERSION=2.9.12
+ARG KUBECTL_VERSION=v1.18.3
 ARG KUSTOMIZE_VERSION=3.5.4
 ARG HELM_VERSION=3.1.2
 
@@ -14,6 +14,7 @@ RUN set -xe \
   ca-certificates \
   curl \
   docker-cli \
+  ffmpeg \
   git \
   gnupg \
   jq \
