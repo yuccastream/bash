@@ -9,7 +9,6 @@ ARG KUSTOMIZE_VERSION=3.9.1
 ARG NOMAD_VERSION=1.0.3
 ARG VAULT_VERSION=1.6.1
 
-LABEL io.ansible.version="${ANSIBLE_VERSION}"
 LABEL io.doctl.version="${DOCTL_VERSION}"
 LABEL io.hcloud.version="${HCLOUD_VERSION}"
 LABEL io.helm.version="${HELM_VERSION}"
