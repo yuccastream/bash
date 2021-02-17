@@ -54,7 +54,7 @@ RUN set -xe \
 
 # Install hetzner cloud cli tool
 RUN set -xe \
-  curl -L https://github.com/hetznercloud/cli/releases/download/v1.20.0/hcloud-linux-amd64.tar.gz | tar -xz \
+  && curl -L https://github.com/hetznercloud/cli/releases/download/${HCLOUD_VERSION}/hcloud-linux-amd64.tar.gz | tar -xz \
   && mv ./hcloud /usr/local/bin/
 
 # Install Ansible
