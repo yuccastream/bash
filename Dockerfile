@@ -1,11 +1,23 @@
 FROM bash:5
 WORKDIR /app
 
-ARG DOCTL_VERSION=1.39.0
 ARG ANSIBLE_VERSION=2.9.12
+ARG DOCTL_VERSION=1.56.0
+ARG HCLOUD_VERSION=v1.20.0
+ARG HELM_VERSION=3.5.0
 ARG KUBECTL_VERSION=v1.19.6
 ARG KUSTOMIZE_VERSION=3.9.1
-ARG HELM_VERSION=3.5.0
+ARG NOMAD_VERSION=1.0.3
+ARG VAULT_VERSION=1.6.1
+
+LABEL io.ansible.version="${ANSIBLE_VERSION}"
+LABEL io.doctl.version="${DOCTL_VERSION}"
+LABEL io.hcloud.version="${HCLOUD_VERSION}"
+LABEL io.helm.version="${HELM_VERSION}"
+LABEL io.kubectl.version="${KUBECTL_VERSION}"
+LABEL io.kustomize.version="${KUSTOMIZE_VERSION}"
+LABEL io.nomad.version="${NOMAD_VERSION}"
+LABEL io.vault.version="${VAULT_VERSION}"
 
 # Install tools
 RUN set -xe \
@@ -30,13 +42,20 @@ RUN set -xe \
   unzip \
   zip \
   && curl https://rclone.org/install.sh | bash \
-  && pip3 install yq awscli --upgrade
+  && pip3 install --upgrade pip setuptools \
+  && pip3 install yq j2cli j2cli[yaml]
 
 # Install DigitalOcean cli tool
 RUN set -xe \
   && mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2 \
-  && curl -L https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-linux-amd64.tar.gz  | tar xz \
+  && curl -L https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-linux-amd64.tar.gz  | tar -xz \
   && mv ./doctl /usr/local/bin/
+
+
+# Install hetzner cloud cli tool
+RUN set -xe \
+  curl -L https://github.com/hetznercloud/cli/releases/download/v1.20.0/hcloud-linux-amd64.tar.gz | tar -xz \
+  && mv ./hcloud /usr/local/bin/
 
 # Install Ansible
 RUN set -xe \
@@ -55,11 +74,21 @@ RUN set -xe \
   && echo -e "[local]\nlocalhost ansible_connection=local" > \
   /etc/ansible/hosts
 
-# Install KUBECTL KUSTOMIZE HELM
-LABEL io.kubectl.version="${KUBECTL_VERSION}"
-LABEL io.kustomize.version="${KUSTOMIZE_VERSION}"
-LABEL io.helm.version="${HELM_VERSION}"
+# Install Vault
+RUN set -xe \
+  && curl -sSL -O https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip \
+  && unzip vault_${VAULT_VERSION}_linux_amd64.zip \
+  && mv ./vault /usr/local/bin/ \
+  && rm -f vault_${VAULT_VERSION}_linux_amd64.zip
 
+# Install Nomad
+RUN set -xe \
+  && curl -sSL -O https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_linux_amd64.zip \
+  && unzip nomad_${NOMAD_VERSION}_linux_amd64.zip \
+  && mv ./nomad /usr/local/bin/ \
+  && rm -f nomad_${NOMAD_VERSION}_linux_amd64.zip
+
+# Install KUBECTL KUSTOMIZE HELM
 RUN set -xe \
   && curl -sLo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl \
   && curl -sL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz  | tar -zx \
