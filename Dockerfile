@@ -1,7 +1,6 @@
 FROM bash:5
 WORKDIR /app
 
-ARG ANSIBLE_VERSION=2.9.12
 ARG DOCTL_VERSION=1.56.0
 ARG HCLOUD_VERSION=v1.20.0
 ARG HELM_VERSION=3.5.0
@@ -22,6 +21,7 @@ LABEL io.vault.version="${VAULT_VERSION}"
 # Install tools
 RUN set -xe \
   && apk add --no-cache --progress \
+  ansible \
   bind-tools \
   ca-certificates \
   curl \
@@ -56,23 +56,6 @@ RUN set -xe \
 RUN set -xe \
   && curl -L https://github.com/hetznercloud/cli/releases/download/${HCLOUD_VERSION}/hcloud-linux-amd64.tar.gz | tar -xz \
   && mv ./hcloud /usr/local/bin/
-
-# Install Ansible
-RUN set -xe \
-  && echo "****** Install system dependencies ******" \
-  && apk --update add --virtual build-dependencies \
-  python3-dev libffi-dev openssl-dev build-base \
-  \
-  && echo "****** Install ansible and python dependencies ******" \
-  && pip3 install --upgrade pip \
-  && pip3 install ansible==${ANSIBLE_VERSION} boto3 \
-  \
-  && echo "****** Remove unused system librabies ******" \
-  && apk del build-dependencies \
-  && rm -rf /var/cache/apk/* \
-  && mkdir -p /etc/ansible \
-  && echo -e "[local]\nlocalhost ansible_connection=local" > \
-  /etc/ansible/hosts
 
 # Install Vault
 RUN set -xe \
