@@ -25,6 +25,7 @@ RUN set -xe \
   ca-certificates \
   curl \
   docker-cli \
+  envsubst \
   ffmpeg \
   git \
   gnupg \
